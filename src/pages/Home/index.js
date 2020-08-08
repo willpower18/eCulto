@@ -10,7 +10,7 @@ export default function Home() {
             <View style={styles.header}>
                 <Text style={styles.headerBrand}>Igreja Batista Betel</Text>
                 <Text style={styles.headerText}></Text>
-                <FontAwesome5 name="user-clock" size={30} color="#bf262f" />
+                <FontAwesome5 name="church" size={30} color="#8b57c9" />
             </View>
             <View style={styles.header}>
                 <Text style={styles.about}>Escolha um horário de culto disponível abaixo e confirme sua presença</Text>
@@ -20,7 +20,7 @@ export default function Home() {
                     <View style={styles.dashBoardHeader}>
                         <Text style={styles.titleDash}>Culto de Celebração</Text>
                         <Text style={styles.titleDash}></Text>
-                        <FontAwesome5 name="clock" size={20} color="#62402a" />
+                        <FontAwesome5 name="clock" size={20} color="#7f7f7f" />
                     </View>
                     <View style={styles.currency}>
                         <Text style={styles.fontCurrency}>Pr. Valmir Andrade</Text>
@@ -29,10 +29,10 @@ export default function Home() {
                         <Text style={styles.fontCurrency}>09/08/2020 20:00</Text>
                     </View>
                     <View style={styles.progressBar}>
-                        <ProgressBar progress={0.5} color='#bf262f' />
+                        <ProgressBar progress={0.5} color='#8b57c9' />
                     </View>
                     <View style={styles.progressBar}>
-                        <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#2fbf26' onPress={() => { }}>
+                        <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={() => { }}>
                             Quero Participar
                     </Button>
                     </View>
@@ -41,7 +41,7 @@ export default function Home() {
                     <View style={styles.dashBoardHeader}>
                         <Text style={styles.titleDash}>TADEL</Text>
                         <Text style={styles.titleDash}></Text>
-                        <FontAwesome5 name="clock" size={20} color="#62402a" />
+                        <FontAwesome5 name="clock" size={20} color="#7f7f7f" />
                     </View>
                     <View style={styles.currency}>
                         <Text style={styles.fontCurrency}>Pr. Valmir Andrade</Text>
@@ -50,10 +50,10 @@ export default function Home() {
                         <Text style={styles.fontCurrency}>12/08/2020 20:00</Text>
                     </View>
                     <View style={styles.progressBar}>
-                        <ProgressBar progress={0.8} color='#bf262f' />
+                        <ProgressBar progress={0.8} color='#8b57c9' />
                     </View>
                     <View style={styles.progressBar}>
-                        <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#2fbf26' onPress={() => { }}>
+                        <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={() => { }}>
                             Quero Participar
                     </Button>
                     </View>
@@ -62,7 +62,7 @@ export default function Home() {
                     <View style={styles.dashBoardHeader}>
                         <Text style={styles.titleDash}>Culto de Adoração</Text>
                         <Text style={styles.titleDash}></Text>
-                        <FontAwesome5 name="clock" size={20} color="#62402a" />
+                        <FontAwesome5 name="clock" size={20} color="#7f7f7f" />
                     </View>
                     <View style={styles.currency}>
                         <Text style={styles.fontCurrency}>Pr. Paulo Arantes</Text>
@@ -71,10 +71,10 @@ export default function Home() {
                         <Text style={styles.fontCurrency}>14/08/2020 19:00</Text>
                     </View>
                     <View style={styles.progressBar}>
-                        <ProgressBar progress={1} color='#bf262f' />
+                        <ProgressBar progress={1} color='#8b57c9' />
                     </View>
                     <View style={styles.progressBar}>
-                        <Button icon="close" disabled={true} labelStyle={{ color: '#fff' }} mode="contained" color='#bf262f' onPress={() => { }}>
+                        <Button icon="close" disabled={true} labelStyle={{ color: '#fff' }} mode="contained" color='#8b57c9' onPress={() => { }}>
                             Esgotado
                     </Button>
                     </View>
@@ -83,7 +83,7 @@ export default function Home() {
                     <View style={styles.dashBoardHeader}>
                         <Text style={styles.titleDash}>Culto de Adoração</Text>
                         <Text style={styles.titleDash}></Text>
-                        <FontAwesome5 name="clock" size={20} color="#62402a" />
+                        <FontAwesome5 name="clock" size={20} color="#7f7f7f" />
                     </View>
                     <View style={styles.currency}>
                         <Text style={styles.fontCurrency}>Pr. Paulo Arantes</Text>
@@ -92,10 +92,10 @@ export default function Home() {
                         <Text style={styles.fontCurrency}>14/08/2020 19:00</Text>
                     </View>
                     <View style={styles.progressBar}>
-                        <ProgressBar progress={0.2} color='#bf262f' />
+                        <ProgressBar progress={0.2} color='#8b57c9' />
                     </View>
                     <View style={styles.progressBar}>
-                        <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#2fbf26' onPress={() => { }}>
+                        <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={() => { }}>
                             Quero Participar
                     </Button>
                     </View>
