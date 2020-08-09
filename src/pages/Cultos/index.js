@@ -2,9 +2,17 @@ import React from 'react';
 import { SafeAreaView, View, Text, ScrollView } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { ProgressBar, Button } from 'react-native-paper';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import styles from './styles';
 
 export default function Cultos(){
+    const navigation = useNavigation();
+    const route = useRoute();
+
+    function navigateToParticipacao(){
+        navigation.navigate('Participacao');
+    }
+    
     return(
         <SafeAreaView style={styles.container}>
         <View style={styles.header}>
@@ -32,7 +40,7 @@ export default function Cultos(){
                     <ProgressBar progress={0.5} color='#8b57c9' />
                 </View>
                 <View style={styles.progressBar}>
-                    <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={() => { }}>
+                    <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={navigateToParticipacao}>
                         Quero Participar
                 </Button>
                 </View>
@@ -53,7 +61,7 @@ export default function Cultos(){
                     <ProgressBar progress={0.8} color='#8b57c9' />
                 </View>
                 <View style={styles.progressBar}>
-                    <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={() => { }}>
+                    <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={navigateToParticipacao}>
                         Quero Participar
                 </Button>
                 </View>
@@ -74,7 +82,7 @@ export default function Cultos(){
                     <ProgressBar progress={1} color='#8b57c9' />
                 </View>
                 <View style={styles.progressBar}>
-                    <Button icon="close" disabled={true} labelStyle={{ color: '#fff' }} mode="contained" color='#8b57c9' onPress={() => { }}>
+                    <Button icon="close" disabled={true} labelStyle={{ color: '#fff' }} mode="contained" color='#8b57c9' onPress={navigateToParticipacao}>
                         Esgotado
                 </Button>
                 </View>
@@ -95,12 +103,15 @@ export default function Cultos(){
                     <ProgressBar progress={0.2} color='#8b57c9' />
                 </View>
                 <View style={styles.progressBar}>
-                    <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={() => { }}>
+                    <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={navigateToParticipacao}>
                         Quero Participar
                 </Button>
                 </View>
             </View>
         </ScrollView>
+        <View>
+            <Text style={styles.wb}><FontAwesome5 name="copyright" size={11} color="8b57c9"/> WB Systems - Soluções em Informática</Text>
+        </View>
     </SafeAreaView>
     );
 }

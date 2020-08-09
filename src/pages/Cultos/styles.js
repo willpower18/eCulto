@@ -13,6 +13,12 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
+    wb:{
+        paddingBottom:5,
+        fontSize:12,
+        color:'#8b57c9',
+        textAlign: 'center',
+    },
     about:{
         paddingTop:10,
         fontSize:16,

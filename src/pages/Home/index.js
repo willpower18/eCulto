@@ -1,106 +1,102 @@
 import React from 'react';
-import { SafeAreaView, View, Text, ScrollView } from 'react-native';
+import { SafeAreaView, View, Text, ScrollView, Image } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { ProgressBar, Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import styles from './styles';
 
 export default function Home() {
+    const navigation = useNavigation();
+    const route = useRoute();
+
+    function navigateToCultos(){
+        navigation.navigate('Cultos');
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.headerBrand}>Igreja Batista Betel</Text>
+                <Image source={require('../../assets/logo.png')}/>
                 <Text style={styles.headerText}></Text>
-                <FontAwesome5 name="church" size={30} color="#8b57c9" />
+                <Text style={styles.headerText}><Text style={{color:'#8b57c9'}}>e</Text>Culto</Text>
             </View>
             <View style={styles.header}>
-                <Text style={styles.about}>Escolha um horário de culto disponível abaixo e confirme sua presença</Text>
+                <Text style={styles.about}>Confirme sua presença em eventos religiosos.</Text>
+            </View>
+            <View style={styles.header}>
+                <Text style={styles.about2}>Ajude igrejas a atenderem as exigências sanitárias confirmando sua presença no culto.</Text>
+            </View>
+            <View>
+                <Text style={styles.titleChurch}>Igrejas Credenciadas</Text>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.dashBoard}>
                     <View style={styles.dashBoardHeader}>
-                        <Text style={styles.titleDash}>Culto de Celebração</Text>
+                        <Text style={styles.titleDash}>Igreja Batista Betel</Text>
                         <Text style={styles.titleDash}></Text>
-                        <FontAwesome5 name="clock" size={20} color="#7f7f7f" />
+                        <FontAwesome5 name="church" size={20} color="#7f7f7f" />
+                    </View>
+                    <View style={styles.currency}>
+                        <Text style={styles.fontCurrency}>Rua Olavo Bilac, 000 - São Benedito</Text>
                     </View>
                     <View style={styles.currency}>
                         <Text style={styles.fontCurrency}>Pr. Valmir Andrade</Text>
                     </View>
                     <View style={styles.currency}>
-                        <Text style={styles.fontCurrency}>09/08/2020 20:00</Text>
+                        <Text style={styles.fontCurrency}>Cristã - Evangélica</Text>
                     </View>
                     <View style={styles.progressBar}>
-                        <ProgressBar progress={0.5} color='#8b57c9' />
-                    </View>
-                    <View style={styles.progressBar}>
-                        <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={() => { }}>
-                            Quero Participar
-                    </Button>
+                        <Button icon="clock" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={navigateToCultos}>
+                            Ver Horários
+                        </Button>
                     </View>
                 </View>
                 <View style={styles.dashBoard2}>
                     <View style={styles.dashBoardHeader}>
-                        <Text style={styles.titleDash}>TADEL</Text>
+                        <Text style={styles.titleDash}>Igreja Batista Memorial</Text>
                         <Text style={styles.titleDash}></Text>
-                        <FontAwesome5 name="clock" size={20} color="#7f7f7f" />
+                        <FontAwesome5 name="church" size={20} color="#7f7f7f" />
                     </View>
                     <View style={styles.currency}>
-                        <Text style={styles.fontCurrency}>Pr. Valmir Andrade</Text>
+                        <Text style={styles.fontCurrency}>Rua Teste, 000 - Centro</Text>
                     </View>
                     <View style={styles.currency}>
-                        <Text style={styles.fontCurrency}>12/08/2020 20:00</Text>
+                        <Text style={styles.fontCurrency}>Pr. Valcir Alves</Text>
+                    </View>
+                    <View style={styles.currency}>
+                        <Text style={styles.fontCurrency}>Cristã - Evangélica</Text>
                     </View>
                     <View style={styles.progressBar}>
-                        <ProgressBar progress={0.8} color='#8b57c9' />
-                    </View>
-                    <View style={styles.progressBar}>
-                        <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={() => { }}>
-                            Quero Participar
-                    </Button>
+                        <Button icon="clock" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={navigateToCultos}>
+                            Ver Horários
+                        </Button>
                     </View>
                 </View>
                 <View style={styles.dashBoard2}>
                     <View style={styles.dashBoardHeader}>
-                        <Text style={styles.titleDash}>Culto de Adoração</Text>
+                        <Text style={styles.titleDash}>Comunidade Monte Santo</Text>
                         <Text style={styles.titleDash}></Text>
-                        <FontAwesome5 name="clock" size={20} color="#7f7f7f" />
+                        <FontAwesome5 name="church" size={20} color="#7f7f7f" />
                     </View>
                     <View style={styles.currency}>
-                        <Text style={styles.fontCurrency}>Pr. Paulo Arantes</Text>
+                        <Text style={styles.fontCurrency}>Rua Teste, 000 - Centro</Text>
                     </View>
                     <View style={styles.currency}>
-                        <Text style={styles.fontCurrency}>14/08/2020 19:00</Text>
-                    </View>
-                    <View style={styles.progressBar}>
-                        <ProgressBar progress={1} color='#8b57c9' />
-                    </View>
-                    <View style={styles.progressBar}>
-                        <Button icon="close" disabled={true} labelStyle={{ color: '#fff' }} mode="contained" color='#8b57c9' onPress={() => { }}>
-                            Esgotado
-                    </Button>
-                    </View>
-                </View>
-                <View style={styles.dashBoard2}>
-                    <View style={styles.dashBoardHeader}>
-                        <Text style={styles.titleDash}>Culto de Adoração</Text>
-                        <Text style={styles.titleDash}></Text>
-                        <FontAwesome5 name="clock" size={20} color="#7f7f7f" />
+                        <Text style={styles.fontCurrency}>Pr. Guto Ferraz</Text>
                     </View>
                     <View style={styles.currency}>
-                        <Text style={styles.fontCurrency}>Pr. Paulo Arantes</Text>
-                    </View>
-                    <View style={styles.currency}>
-                        <Text style={styles.fontCurrency}>14/08/2020 19:00</Text>
+                        <Text style={styles.fontCurrency}>Cristã - Evangélica</Text>
                     </View>
                     <View style={styles.progressBar}>
-                        <ProgressBar progress={0.2} color='#8b57c9' />
-                    </View>
-                    <View style={styles.progressBar}>
-                        <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={() => { }}>
-                            Quero Participar
-                    </Button>
+                        <Button icon="clock" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={navigateToCultos}>
+                            Ver Horários
+                        </Button>
                     </View>
                 </View>
             </ScrollView>
+            <View>
+                <Text style={styles.wb}><FontAwesome5 name="copyright" size={11} color="8b57c9"/> WB Systems - Soluções em Informática</Text>
+            </View>
         </SafeAreaView>
     );
 }

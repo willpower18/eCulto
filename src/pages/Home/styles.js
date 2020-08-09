@@ -9,14 +9,36 @@ export default StyleSheet.create({
         backgroundColor: '#faf9f4'
     },
     header:{
+        paddingTop:15,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
     about:{
         paddingTop:10,
-        fontSize:16,
-        color: '#13131a'
+        fontSize:30,
+        textAlign: 'justify',
+        color: '#585858'
+    },
+    about2:{
+        paddingTop:5,
+        fontSize:18,
+        textAlign: 'justify',
+        color: '#585858'
+    },
+    wb:{
+        paddingBottom:5,
+        fontSize:12,
+        color:'#8b57c9',
+        textAlign: 'center',
+    },
+    titleChurch:{
+        marginTop:10,
+        marginBottom:5,
+        fontSize:24,
+        color:'#8b57c9',
+        textAlign: 'center',
+        fontWeight: 'bold',
     },
     headerBrand:{
         fontSize:24,
@@ -132,8 +154,7 @@ export default StyleSheet.create({
         textAlign: 'center',
     },
     headerText:{
-        fontSize:15,
-        paddingTop:10,
+        fontSize:20,
         color:'#737380',
         fontWeight: 'bold',
     },
