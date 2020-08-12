@@ -13,6 +13,12 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
+    header2:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom:10,
+    },
     wb:{
         paddingBottom:5,
         fontSize:12,

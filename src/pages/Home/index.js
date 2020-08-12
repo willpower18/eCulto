@@ -7,15 +7,17 @@ import api from '../../services/api';
 import styles from './styles';
 
 export default function Home() {
+    //Estado da Aplicação
+    const [igrejas, setIgrejas] = useState([]);
+
     //Navegação
     const navigation = useNavigation();
     const route = useRoute();
 
-    function navigateToCultos(idIgreja) {
-        navigation.navigate('Cultos', idIgreja);
+    function navigateToCultos(idChurch) {
+        navigation.navigate('Cultos',{idChurch});
     }
-    //Estado da Aplicação
-    const [igrejas, setIgrejas] = useState([]);
+    
     //Funcoes
     async function getData() {
         const response = await api.get(`api/Igrejas?key=AIzaSyBuDB2x3H88svwDRtqC8L7JpXxuG4b2NAY`);
@@ -49,7 +51,7 @@ export default function Home() {
                 keyExtractor={igreja => String(igreja.idIgreja)}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item: igreja }) => (
-                    <View style={styles.dashBoard}>
+                    <View style={styles.dashBoard2}>
                         <View style={styles.dashBoardHeader}>
                             <Text style={styles.titleDash}>{igreja.nome}</Text>
                             <Text style={styles.titleDash}></Text>
@@ -65,7 +67,7 @@ export default function Home() {
                             <Text style={styles.fontCurrency}>{igreja.tradicao}</Text>
                         </View>
                         <View style={styles.progressBar}>
-                            <Button icon="clock" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={navigateToCultos(igreja.idIgreja)}>
+                            <Button icon="clock" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={() => navigateToCultos(igreja.idIgreja)}>
                                 Ver Horários
                         </Button>
                         </View>
