@@ -3,6 +3,7 @@ import { SafeAreaView, View, Text, FlatList, Image } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Button } from 'react-native-paper';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../services/api';
 import styles from './styles';
 
@@ -24,9 +25,34 @@ export default function Home() {
         setIgrejas(response.data);
     }
 
+    async function getAppKey(){
+        const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        try{
+            const value = await AsyncStorage.getItem('@App_Key');
+            if(value !== null) {
+                return;
+            }
+            else{
+                let text = "";
+                for (let i = 0; i < 25; i++){
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
+                await AsyncStorage.setItem('@App_Key', text)
+            }
+        }
+        catch(e){
+            let text = "";
+            for (let i = 0; i < 25; i++){
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+            await AsyncStorage.setItem('@App_Key', text)
+        }
+    }
+
     useEffect(() => {
         const teste = navigation.addListener('focus', () => {
             getData();
+            getAppKey();
         });
     }, []);
     //Retorno

@@ -4,6 +4,7 @@ import { Button } from 'react-native-paper';
 import { TextInputMask } from 'react-native-masked-text'
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import api from '../../services/api';
 import styles from './styles';
@@ -14,6 +15,7 @@ export default function Participacao() {
     const route = useRoute();
 
     //Estado da Aplicação
+    const [appKey, setAppKey] = useState('');
     const [idCulto, setIdCulto] = useState(route.params.idCulto);
     const [nomeIgreja, setNomeIgreja] = useState(route.params.idIgreja);
     const [nomeCulto, setNomeCulto] = useState('');
@@ -23,7 +25,40 @@ export default function Participacao() {
     const [qtdCriancas, setqtdCriancas] = useState('');
 
     //Funcoes
+    async function getAppKey(){
+        try{
+            const value = await AsyncStorage.getItem('@App_Key');
+            if(value !== null) {
+                setAppKey(value);
+            }
+            else{
+                setAppKey('-');
+            }
+        }
+        catch(e){
+            setAppKey('-');
+        }
+    }
+
     async function handleSubmit() {
+        if(nome === ''){
+            alert('Por Favor preencha o Nome!');
+            return;
+        }
+
+        if(telefone === ''){
+            alert('Por Favor preencha o Telefone!');
+            return;
+        }
+        let criancas = 0;
+        if(qtdCriancas !== ''){
+            criancas = parseInt(qtdCriancas);
+            if(criancas > 2){
+                alert('É permitido confirmar no máximo 2 crianças.');
+                return;
+            }
+        }
+        
         const data = {
             key: "AIzaSyBuDB2x3H88svwDRtqC8L7JpXxuG4b2NAY",
             participacao: {
@@ -31,23 +66,32 @@ export default function Participacao() {
                 IdCulto: idCulto,
                 Nome: nome,
                 Telefone: telefone,
-                ChaveApp: "-",
-                QtdCriancas: qtdCriancas,
+                ChaveApp: appKey,
+                QtdCriancas: criancas,
                 QtdAdultos: 1,
                 Confirmado: 0
             }
         };
-        console.log(data);
-        /* const response = await api.post("api/participacao", data);
-         if (response.status == 200) {
-             alert('Presença Confirmada com Sucesso!');
-             setNome('');
-             setTelefone('');
-             setqtdCriancas('');
-         }
-         else {
-             alert('Não foi possível confirmar, tente novamente mais tarde.');
-         }*/
+
+        const response = await api.post("api/participacao", data)
+            .catch(function (error) {
+                if (error.response.status === 401) {
+                    alert('Sua presença já esta confirmada!');
+                }
+                else if (error.response.status === 406) {
+                    alert('Capacidade do evento foi atingida, não foi possível confirmar!');
+                }
+                else {
+                    alert('Não foi possível confirmar, tente novamente mais tarde.');
+                }
+            });
+        if (response.status === 200) {
+            alert('Presença Confirmada com Sucesso!');
+            setNome('');
+            setTelefone('');
+            setqtdCriancas('');
+        }             
+       
     }
 
     async function getData() {
@@ -59,6 +103,7 @@ export default function Participacao() {
     useEffect(() => {
         const loadData = navigation.addListener('focus', () => {
             getData();
+            getAppKey();
         });
     }, []);
 
