@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, FlatList } from 'react-native';
+import { SafeAreaView, View, Text, FlatList, ActivityIndicator } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { ProgressBar, Button } from 'react-native-paper';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -21,28 +21,38 @@ export default function Cultos() {
     const [nomeIgreja, setNomeIgreja] = useState('');
     const [cultos, setCultos] = useState([]);
     const [capacidade, setCapacidade] = useState(0);
+    const [showLoading, setShowLoading] = useState(false);
 
     //Funcoes
     async function getData() {
-        const response = await api.get(`api/Igrejas/${idIgreja}?key=AIzaSyBuDB2x3H88svwDRtqC8L7JpXxuG4b2NAY`);
-        setCapacidade(response.data.capacidade);
-        setNomeIgreja(response.data.nomeIgreja);
-        const arrCultos = response.data.cultos;
-        const arrECultos = [];
-        for (let counter = 0; counter < arrCultos.length; counter++) {
-            let qtdAtual = parseFloat(arrCultos[counter].lotacao);
-            let qtdMaxima = parseFloat(response.data.capacidade);
-            let porcentagem = qtdAtual / qtdMaxima;
-            let eCulto = {
-                idCulto: arrCultos[counter].idCulto,
-                nome: arrCultos[counter].nome,
-                dataHora: arrCultos[counter].dataHora,
-                preletor: arrCultos[counter].preletor,
-                lotacao: porcentagem
+        setShowLoading(true);
+        const response = await api.get(`api/Igrejas/${idIgreja}?key=AIzaSyBuDB2x3H88svwDRtqC8L7JpXxuG4b2NAY`)
+            .catch(function (error){
+                setShowLoading(false);
+                alert('Não foi possível obter a lista de cultos!');
+            });
+        
+        if(response.status === 200){
+            setCapacidade(response.data.capacidade);
+            setNomeIgreja(response.data.nomeIgreja);
+            const arrCultos = response.data.cultos;
+            const arrECultos = [];
+            for (let counter = 0; counter < arrCultos.length; counter++) {
+                let qtdAtual = parseFloat(arrCultos[counter].lotacao);
+                let qtdMaxima = parseFloat(response.data.capacidade);
+                let porcentagem = qtdAtual / qtdMaxima;
+                let eCulto = {
+                    idCulto: arrCultos[counter].idCulto,
+                    nome: arrCultos[counter].nome,
+                    dataHora: arrCultos[counter].dataHora,
+                    preletor: arrCultos[counter].preletor,
+                    lotacao: porcentagem
+                }
+                arrECultos.push(eCulto);
             }
-            arrECultos.push(eCulto);
+            setCultos(arrECultos);   
+            setShowLoading(false);
         }
-        setCultos(arrECultos);
     }
 
     useEffect(() => {
@@ -62,6 +72,7 @@ export default function Cultos() {
             <View style={styles.header2}>
                 <Text style={styles.about}>Escolha um horário de culto disponível abaixo e confirme sua presença</Text>
             </View>
+            <ActivityIndicator size="large" color="#95c957" animating={showLoading}/>
             <FlatList
                 data={cultos}
                 keyExtractor={culto => String(culto.idCulto)}

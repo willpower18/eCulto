@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, FlatList, Image } from 'react-native';
+import { SafeAreaView, View, Text, FlatList, Image, ActivityIndicator } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Button } from 'react-native-paper';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -10,7 +10,7 @@ import styles from './styles';
 export default function Home() {
     //Estado da Aplicação
     const [igrejas, setIgrejas] = useState([]);
-
+    const [showLoading, setShowLoading] = useState(false);
     //Navegação
     const navigation = useNavigation();
     const route = useRoute();
@@ -21,8 +21,17 @@ export default function Home() {
     
     //Funcoes
     async function getData() {
-        const response = await api.get(`api/Igrejas?key=AIzaSyBuDB2x3H88svwDRtqC8L7JpXxuG4b2NAY`);
-        setIgrejas(response.data);
+        setShowLoading(true);
+        const response = await api.get(`api/Igrejas?key=AIzaSyBuDB2x3H88svwDRtqC8L7JpXxuG4b2NAY`)
+            .catch(function (error){
+                setShowLoading(false);
+                alert('Não foi possível obter a lista de igrejas!');
+            });
+
+        if(response.status === 200){
+            setIgrejas(response.data);
+            setShowLoading(false);
+        }
     }
 
     async function getAppKey(){
@@ -72,6 +81,7 @@ export default function Home() {
             <View>
                 <Text style={styles.titleChurch}>Igrejas Credenciadas</Text>
             </View>
+            <ActivityIndicator size="large" color="#95c957" animating={showLoading}/>
             <FlatList
                 data={igrejas}
                 keyExtractor={igreja => String(igreja.idIgreja)}

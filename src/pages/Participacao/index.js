@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, TextInput } from 'react-native';
+import { SafeAreaView, View, Text, TextInput, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-paper';
 import { TextInputMask } from 'react-native-masked-text'
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -23,6 +23,7 @@ export default function Participacao() {
     const [nome, setNome] = useState('');
     const [telefone, setTelefone] = useState('');
     const [qtdCriancas, setqtdCriancas] = useState('');
+    const [showLoading, setShowLoading] = useState(false);
 
     //Funcoes
     async function getAppKey(){
@@ -46,10 +47,21 @@ export default function Participacao() {
             return;
         }
 
+        if(nome.length <= 5){
+            alert('Por favor preencha o nome completo!');
+            return;
+        }
+
         if(telefone === ''){
             alert('Por Favor preencha o Telefone!');
             return;
         }
+
+        if(telefone.length < 14){
+            alert('Informe um telefone válido');
+            return;
+        }
+
         let criancas = 0;
         if(qtdCriancas !== ''){
             criancas = parseInt(qtdCriancas);
@@ -58,7 +70,7 @@ export default function Participacao() {
                 return;
             }
         }
-        
+        setShowLoading(true);
         const data = {
             key: "AIzaSyBuDB2x3H88svwDRtqC8L7JpXxuG4b2NAY",
             participacao: {
@@ -72,20 +84,24 @@ export default function Participacao() {
                 Confirmado: 0
             }
         };
-
+        
         const response = await api.post("api/participacao", data)
             .catch(function (error) {
                 if (error.response.status === 401) {
+                    setShowLoading(false);
                     alert('Sua presença já esta confirmada!');
                 }
                 else if (error.response.status === 406) {
+                    setShowLoading(false);
                     alert('Capacidade do evento foi atingida, não foi possível confirmar!');
                 }
                 else {
+                    setShowLoading(false);
                     alert('Não foi possível confirmar, tente novamente mais tarde.');
                 }
             });
         if (response.status === 200) {
+            setShowLoading(false);
             alert('Presença Confirmada com Sucesso!');
             setNome('');
             setTelefone('');
@@ -95,9 +111,18 @@ export default function Participacao() {
     }
 
     async function getData() {
-        const response = await api.get(`api/participacao/${idCulto}?key=AIzaSyBuDB2x3H88svwDRtqC8L7JpXxuG4b2NAY`);
-        setNomeCulto(response.data.nome);
-        setHoraCulto(response.data.dataHora);
+        setShowLoading(true);
+        const response = await api.get(`api/participacao/${idCulto}?key=AIzaSyBuDB2x3H88svwDRtqC8L7JpXxuG4b2NAY`)
+            .catch(function (error){
+                setShowLoading(false);
+                alert('Algo deu errado, tente novamente mais tarde!');
+            });
+        
+        if(response.status === 200){
+            setNomeCulto(response.data.nome);
+            setHoraCulto(response.data.dataHora);
+            setShowLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -143,16 +168,7 @@ export default function Participacao() {
                     style={styles.input}
                     placeholder={"Telefone"}
                 />
-                <TextInput
-                    style={styles.input}
-                    keyboardType={'numeric'}
-                    maxLength={100}
-                    placeholder={"Crianças"}
-                    value={qtdCriancas}
-                    autoCompleteType={"off"}
-                    onChangeText={text => setqtdCriancas(text)}
-                />
-                <Text style={{ fontSize: 12, marginBottom: 5 }}>* Quantidade de Crianças Acima de 7 anos</Text>
+                <ActivityIndicator size="large" color="#95c957" animating={showLoading}/>
                 <Button icon="check" labelStyle={{ color: '#fff' }} mode="contained" color='#95c957' onPress={() => handleSubmit()}>
                     Confirmar
                 </Button>

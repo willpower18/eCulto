@@ -7,6 +7,11 @@ export default StyleSheet.create({
         paddingHorizontal: 24,
         paddingTop: Constants.statusBarHeight + 20,
     },
+    indicator:{
+        flex: 1,
+        justifyContent: "center",
+        marginBottom: 20,
+    },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',

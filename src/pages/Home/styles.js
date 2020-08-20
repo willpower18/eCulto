@@ -8,6 +8,11 @@ export default StyleSheet.create({
         paddingTop: Constants.statusBarHeight + 10,
         backgroundColor: '#faf9f4'
     },
+    indicator:{
+        flex: 1,
+        justifyContent: "center",
+        marginBottom: 20,
+    },
     header:{
         paddingTop:15,
         flexDirection: 'row',
